@@ -48,7 +48,14 @@
                     <th scope="row">{{ $project->id }}</th>
                     <td>{{ $project->name }}</td>
                     <td>{{ $project->slug }}</td>
-                    <td>{{ $project->type ? $project->type->label : '-' }}</td>
+                    <td>
+                        @if ($project->type)
+                            <span class="badge"
+                                style="background-color: {{ $project->type->color }}">{{ $project->type->label }}</span>
+                        @else
+                            <span class="badge text-bg-dark">No type</span>
+                        @endif
+                    </td>
                     <td>{{ $project->is_completed ? 'Yes' : 'No' }}</td>
                     <td>{{ $project->getFormatDate('created_at', 'm-Y') }}</td>
                     <td>{{ $project->getFormatDate('updated_at', 'm-Y') }}</td>

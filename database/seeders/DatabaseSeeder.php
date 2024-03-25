@@ -20,10 +20,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'gianluca@maffucci.it',
         ]);
 
+        // Inserisco il seeder
+        //! ATTENZIONE: inserisco il seeder prima di creare i progetti
+        $this->call(TypeSeeder::class);
+
         //! CREO 10 FAKE PROJECT
         \App\Models\Project::factory(30)->create();
-
-        // Inserisco il seeder
-        $this->call(TypeSeeder::class);
     }
 }

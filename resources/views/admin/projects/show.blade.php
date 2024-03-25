@@ -8,12 +8,14 @@
     {{-- Header --}}
     <header>
         <h3 class="border-bottom py-1">{{ $project->name }}</h3>
-        <p><b><small>Type:</small></b>
-            @if ($project->type)
-                <small>{{ $project->type->label }}</small>
-            @else
-                <small>-</small>
-            @endif
+        <small>
+            <p><b>Type:
+        </small></b>
+        @if ($project->type)
+            <span class="badge" style="background-color: {{ $project->type->color }}">{{ $project->type->label }}</span>
+        @else
+            <span class="badge text-bg-dark">No type</span>
+        @endif
         </p>
     </header>
 
