@@ -22,5 +22,8 @@ class DatabaseSeeder extends Seeder
 
         //! CREO 10 FAKE PROJECT
         \App\Models\Project::factory(30)->create();
+
+        // Inserisco il seeder
+        $this->call(TypeSeeder::class);
     }
 }
