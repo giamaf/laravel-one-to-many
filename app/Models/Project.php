@@ -23,4 +23,10 @@ class Project extends Model
     {
         return asset('storage/' . $this->image);
     }
+
+    //! Si definisce come un metodo ma si legge come proprietà. Es: ($project->type->label)
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
 }
