@@ -18,23 +18,20 @@ class ProjectController extends Controller
     public function index(Request $request)
     {
         // Recupero i dati del filtro nella request
-        $filter = $request->query('filter');
+        $completed_filter = $request->query('completed_filter');
+        $type_filter = $request->query('type_filter');
 
         // Preparo la query
-        $query = Project::orderByDesc('updated_at')->orderByDesc('created_at');
+        $projects = Project::completed($completed_filter)
+            ->type($type_filter)
+            ->orderByDesc('updated_at')
+            ->orderByDesc('created_at')
+            ->paginate(10)
+            //! Importante aggiungere withQueryString per mantenere il filtro al cambio pagina
+            ->withQueryString();
 
-        // Se mi arriva qualcosa...
-        if ($filter) {
-            // Se mi arriva yes...
-            $value = $filter === 'yes';
-            // Filtro per i completati
-            $query->whereIsCompleted($value);
-            //! Se mi arriva no allora restituisco false e filtro per i non completati
-        }
-
-        //! Importante aggiungere withQueryString per mantenere il filtro al cambio pagina
-        $projects = $query->paginate(10)->withQueryString();
-        return view('admin.projects.index', compact('projects', 'filter'));
+        $types = Type::withCount('projects')->get();
+        return view('admin.projects.index', compact('projects', 'completed_filter', 'type_filter', 'types'));
     }
 
     /**

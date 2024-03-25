@@ -7,14 +7,25 @@
         <h3 class="m-0">Projects</h3>
 
         {{-- Filtro --}}
-        <div class="d-flex justify-content-between align-items-center gap-3">
+        <div class="d-flex justify-content-between align-items-center gap-4">
             <form action="{{ route('admin.projects.index') }}" method="GET">
                 <div class="d-flex justify-content-between gap-1">
-                    <select class="form-select" name="filter">
-                        <option value="" @if ($filter === '') selected @endif>All</option>
-                        <option value="yes" @if ($filter === 'yes') selected @endif>Yes</option>
-                        <option value="no" @if ($filter === 'no') selected @endif>No</option>
-                    </select>
+                    <div class="col-4">
+                        <select class="form-select" name="completed_filter">
+                            <option value="" @if ($completed_filter === '') selected @endif>All</option>
+                            <option value="yes" @if ($completed_filter === 'yes') selected @endif>Yes</option>
+                            <option value="no" @if ($completed_filter === 'no') selected @endif>No</option>
+                        </select>
+                    </div>
+                    <div class="col-5">
+                        <select class="form-select" name="type_filter">
+                            <option value="">All types</option>
+                            @foreach ($types as $type)
+                                <option value="{{ $type->id }} @if ($type_filter == $type->id) selected @endif">
+                                    {{ $type->label }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <button class="btn btn-outline-primary">search</button>
                 </div>
             </form>
