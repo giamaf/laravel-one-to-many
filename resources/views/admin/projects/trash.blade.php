@@ -4,7 +4,7 @@
 
 @section('content')
     <header class="d-flex justify-content-between align-items-center border-bottom py-2">
-        <h3 class="m-0">Erased Projects</h3>
+        <h3 class="m-0">Trashed Projects</h3>
 
         {{-- Buttons --}}
         <div class="d-flex justify-content-between align-items-center gap-1">
