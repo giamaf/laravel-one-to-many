@@ -35,6 +35,7 @@
                 <th scope="col">id</th>
                 <th scope="col">Name</th>
                 <th scope="col">Slug</th>
+                <th scope="col">Type</th>
                 <th scope="col">Completed</th>
                 <th scope="col">Created</th>
                 <th scope="col">Updated</th>
@@ -47,6 +48,7 @@
                     <th scope="row">{{ $project->id }}</th>
                     <td>{{ $project->name }}</td>
                     <td>{{ $project->slug }}</td>
+                    <td>{{ $project->category ? $project->category->label : '-' }}</td>
                     <td>{{ $project->is_completed ? 'Yes' : 'No' }}</td>
                     <td>{{ $project->getFormatDate('created_at', 'm-Y') }}</td>
                     <td>{{ $project->getFormatDate('updated_at', 'm-Y') }}</td>
@@ -69,7 +71,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7">
+                    <td colspan="8">
                         <h3>No projects</h3>
                     </td>
                 </tr>
