@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Type;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -42,21 +43,23 @@ class ProjectController extends Controller
     public function create()
     {
         $project = new Project;
-        return view('admin.projects.create', compact('project'));
+        $types = Type::select('label', 'id')->get();
+        return view('admin.projects.create', compact('project', 'types'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Project $project)
     {
 
         $request->validate(
             [
-                'name' => 'required|string|min:3|max:50|unique:projects',
+                'name' => ['required', 'string', 'min:3', 'max:50', Rule::unique('projects')->ignore($project->id)],
                 'content' => 'required|string',
                 'image' => 'nullable|image|mimes:png,jpg,jpeg',
                 'is_completed' => 'nullable|boolean',
+                'type_id' => 'nullable|exists:types,id',
             ],
             [
                 'name.required' => 'Project name required',
@@ -67,6 +70,7 @@ class ProjectController extends Controller
                 'image.image' => 'File is not an image',
                 'image.mimes' => 'Invalid file extension. Accepted only: .png, .jpg, .jpeg ',
                 'is_completed.boolean' => 'Invalid field',
+                'type_id.exists' => 'Invalid type',
             ]
         );
 
@@ -124,7 +128,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::select('label', 'id')->get();
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**
@@ -139,6 +144,7 @@ class ProjectController extends Controller
                 'content' => 'required|string',
                 'image' => 'nullable|image|mimes:png,jpg,jpeg',
                 'is_completed' => 'nullable|boolean',
+                'type_id' => 'nullable|exists:types,id',
             ],
             [
                 'name.required' => 'Project name required',
@@ -149,6 +155,7 @@ class ProjectController extends Controller
                 'image.image' => 'File is not an image',
                 'image.mimes' => 'Invalid file extension. Accepted only: .png, .jpg, .jpeg ',
                 'is_completed.boolean' => 'Invalid field',
+                'type_id.exists' => 'Invalid type',
             ]
         );
 

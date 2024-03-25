@@ -56,22 +56,10 @@
                 <button class="btn btn-outline-secondary" type="button" id="change-image-button">upload</button>
                 <input type="text" class="form-control" value="{{ old('image', $project->image ?? '') }}" disabled>
             </div>
-
-
+            {{-- Input standard --}}
             <input type="file"
                 class="form-control  @if ($project->image) d-none @endif @error('image') is-invalid @elseif (old('image', '')) is-valid @enderror"
                 id="image" name="image" placeholder="http:// or https://">
-
-
-
-
-
-
-
-
-
-
-
             @error('image')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -87,7 +75,23 @@
         <img src="{{ old('image', $project->image) ? $project->renderImage() : 'https://marcolanci.it/boolean/assets/placeholder.png' }}"
             alt="project-img" id="preview" class="img-fluid rounded">
     </div>
-    <div class="col-2">
+    <div class="col-3">
+        <label for="type_id" class="form-label">Type</label>
+        <select class="form-select" name="type_id" id="type_id"
+            @error('type_id') is-invalid @elseif (old('type_id', '')) is-valid @enderror>
+            <option value="">--Project Type</option>
+            @foreach ($types as $type)
+                <option value="{{ $type->id }}" @if (old('type_id', $project->type?->id) == $type->id) selected @endif>
+                    {{ $type->label }}</option>
+            @endforeach
+        </select>
+        @error('type_id')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+    <div class="col-12">
         <div class="form-check form-switch my-3">
             <label class="form-check-label" for="completed">Completed</label>
             <input class="form-check-input" type="checkbox" role="switch" id="completed" name="is_completed"
