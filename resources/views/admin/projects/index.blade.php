@@ -61,10 +61,10 @@
                     <td>{{ $project->slug }}</td>
                     <td>
                         @if ($project->type)
-                            <span class="badge"
+                            <span class="badge rounded-pill"
                                 style="background-color: {{ $project->type->color }}">{{ $project->type->label }}</span>
                         @else
-                            <span class="badge text-bg-dark">No type</span>
+                            <span class="badge rounded-pill text-bg-dark">No type</span>
                         @endif
                     </td>
                     <td>{{ $project->is_completed ? 'Yes' : 'No' }}</td>

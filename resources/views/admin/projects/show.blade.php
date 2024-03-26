@@ -12,9 +12,10 @@
             <p><b>Type:
         </small></b>
         @if ($project->type)
-            <span class="badge" style="background-color: {{ $project->type->color }}">{{ $project->type->label }}</span>
+            <span class="badge rounded-pill"
+                style="background-color: {{ $project->type->color }}">{{ $project->type->label }}</span>
         @else
-            <span class="badge text-bg-dark">No type</span>
+            <span class="badge rounded-pill text-bg-dark">No type</span>
         @endif
         </p>
     </header>

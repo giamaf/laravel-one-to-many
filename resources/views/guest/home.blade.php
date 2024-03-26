@@ -26,7 +26,7 @@
                 </div>
             @empty
                 <div class="col-12">
-                    <h1>No projects available</h1>
+                    <h1 class="text-center my-4">No projects available</h1>
                 </div>
             @endforelse
         </div>

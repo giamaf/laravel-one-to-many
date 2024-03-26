@@ -25,7 +25,7 @@ class ProjectFactory extends Factory
 
         $slug = Str::slug($name);
 
-        $image_file = fake()->image(null, 250, 250);
+        $image_file = fake()->imageUrl(250, 250);
 
         // Creiamo una cartella ogni qualvolta refreshiamo il db
         Storage::makeDirectory('project_images');
